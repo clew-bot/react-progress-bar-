@@ -1,7 +1,9 @@
 import React from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
 
 const ProgressBar = (props) => {
-    const { bgcolor, completed } = props;
+    const { bgcolor, completed, loaded } = props;
   
     const containerStyles = {
       height: 20,
@@ -43,12 +45,20 @@ const ProgressBar = (props) => {
     }
   
     return (
+      <AnimatePresence>
+      {loaded &&     <motion.div
+        key="progressBar"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+    >
       <div style={containerStyles}>
-          <p style={textStyles}>{`We're Loading 💅${completed}%`}</p>
+          <p style={textStyles}>{`Loading ${completed}%`}</p>
         <div style={fillerStyles}>
           <span style={labelStyles}></span>
         </div>
-      </div>
+      </div> </motion.div> }
+      </AnimatePresence>
     );
   };
   
